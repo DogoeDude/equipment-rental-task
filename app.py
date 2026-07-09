@@ -62,8 +62,9 @@ def parse_date(value):
 
 def rental_days(from_date, to_date):
     """Number of days a rental covers."""
-    return (to_date - from_date).days
-
+    return (to_date - from_date).days + 1
+#Issue found here, the calculation was not inclusive of the end date. Rather, it was subtracting the start date from the end date.
+#Which is why the calculation was off by 1. As to what I have found as well in the frontend, the calculation was added by 1.
 
 def dates_overlap(start_a, end_a, start_b, end_b):
     """True if date range A overlaps date range B."""
