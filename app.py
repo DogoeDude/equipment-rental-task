@@ -68,9 +68,9 @@ def rental_days(from_date, to_date):
 
 def dates_overlap(start_a, end_a, start_b, end_b):
     """True if date range A overlaps date range B."""
-    return start_b <= start_a <= end_b and end_a >= end_b
+    return start_a <= end_b and end_a >= start_b
     #Bug found here, the issue was that the condition was only checking within the center of the date range, not the entire range.
-
+    #Rechecked this bug, now fixed the logic.
 
 def find_conflicting_booking(equipment_id, from_date, to_date, bookings):
     """Return an existing booking that clashes with this one, or None."""
