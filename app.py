@@ -100,7 +100,7 @@ def index():
 
 @app.route("/api/equipment")
 def list_equipment():
-    return jsonify(EQUIPMENT)
+    return jsonify([item for item in EQUIPMENT if is_available(item)])
 
 
 @app.route("/api/bookings")
@@ -116,19 +116,28 @@ def availability():
 
     available = []
     for item in EQUIPMENT:
+        if not is_available(item):
+            continue
         conflict = find_conflicting_booking(item["id"], from_date, to_date, bookings)
         if conflict is None:
             available.append(item)
     return jsonify(available)
 
+#Added a helper to identify if the equipment is available.
+def is_available(equipment):
+    if equipment["status"] == "available":
+        return True
+    return False
 
 @app.route("/api/bookings", methods=["POST"])
 def create_booking():
     data = request.get_json(force=True)
-
+    
     equipment = get_equipment(data.get("equipment_id"))
     if equipment is None:
         return jsonify({"error": "Unknown equipment"}), 400
+    if not is_available(equipment):
+        return jsonify({"error": "Equipment is unavailable"}), 400
 
     from_date = parse_date(data["from_date"])
     to_date = parse_date(data["to_date"])

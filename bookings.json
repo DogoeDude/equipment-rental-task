@@ -78,5 +78,15 @@
     "to_date": "2026-01-17",
     "total": 0.0,
     "status": "confirmed"
+  },
+  {
+    "id": 9,
+    "equipment_id": 3,
+    "equipment_name": "HD Projector",
+    "customer": "JaneDoe",
+    "from_date": "2026-01-17",
+    "to_date": "2026-01-17",
+    "total": 900.0,
+    "status": "confirmed"
   }
 ]
